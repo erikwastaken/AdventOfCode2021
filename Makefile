@@ -4,3 +4,6 @@ objects=$(subst .cpp,.o,$(sources))
 
 aoc21: $(objects)
 	$(CXX) $(CPPFLAGS) $^ -o $@
+
+clean:
+	$(RM) aoc21 $(objects)
