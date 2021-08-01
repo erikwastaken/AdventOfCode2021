@@ -23,10 +23,15 @@ std::unique_ptr<AdventDay> createDay(int day) {
 
 int getDayNumber() {
   while (true) {
-    int d {0};
+    std::string d {};
     std::cout << "Please provide the day: ";
     std::cin >> d;
-    if (0 < d && d < 26) return d;
+    try {
+      int n = std::stoi(d);
+      if (0 < n && n < 26) return n;
+    } catch (std::invalid_argument) {
+      continue;
+    }
   }
 }
 
