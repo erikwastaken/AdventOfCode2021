@@ -1,0 +1,4 @@
+aoc21
+*.o
+tags
+input/
