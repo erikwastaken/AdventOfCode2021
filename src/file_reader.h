@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include "exceptions.h"
 
 class FileReader {
   public:
@@ -13,12 +14,4 @@ class FileReader {
     std::fstream _file;
 };
 
-class FileReaderException : public std::exception {
-  public:
-    FileReaderException(const std::string& s) : _msg(s) {};
-    ~FileReaderException() {};
-   virtual const char* what() const noexcept override { return _msg.c_str(); }; 
-  private:
-    std::string _msg;
-};
 #endif
