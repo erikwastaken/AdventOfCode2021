@@ -5,8 +5,11 @@
 #include "default_day.h"
 #include "file_reader.h"
 
-std::unique_ptr<AdventDay> createDay(int day);
+std::unique_ptr<AdventDay> createDay(int day, std::string path);
+std::unique_ptr<AdventDay> createDayWithDefaultPath(int num);
 int parseCommandLineArguments(int argc, char* argv[]);
+int getDayFromUser();
+
 class AoCException : public std::exception {
   public:
     AoCException(std::string s) : _msg(s) {};
@@ -18,9 +21,17 @@ class AoCException : public std::exception {
 
 int main(int argc, char* argv[]) {
   try {
-    int num = parseCommandLineArguments(argc, argv);
-    auto day = createDay(num);
-    std::cout << "Day" << num << std::endl;
+    std::unique_ptr<AdventDay> day;
+    switch (argc) {
+      case 3:
+        day = createDay(std::atoi(argv[1]), argv[2]);
+        break;
+      case 2:
+        day = createDayWithDefaultPath(std::atoi(argv[1]));
+        break;
+      default:
+        day = createDayWithDefaultPath(getDayFromUser());
+    }
     std::cout << "Part1: " << day->part1() << std::endl;
     std::cout << "Part2: " << day->part2() << std::endl;
   } catch (AoCException& e) {
@@ -28,10 +39,9 @@ int main(int argc, char* argv[]) {
   }
 }
 
-std::unique_ptr<AdventDay> createDay(int day) {
+std::unique_ptr<AdventDay> createDay(int day, std::string path) {
   try {
-    std::string inputPath = "inputs/inputDay" + std::to_string(day) + ".txt";
-    auto fr = FileReader(inputPath);
+    auto fr = FileReader(path);
     switch (day) {
       default: return std::unique_ptr<AdventDay>{ new DefaultDay() };
     }
@@ -40,7 +50,12 @@ std::unique_ptr<AdventDay> createDay(int day) {
   }
 }
 
-int getDayNumber() {
+std::unique_ptr<AdventDay> createDayWithDefaultPath(int num) {
+  std::string path {"inputs/inputDay" + std::to_string(num) + ".txt"};
+  return createDay(num, path);
+}
+
+int getDayFromUser() {
   while (true) {
     std::string d {};
     std::cout << "Please provide the day: ";
@@ -52,9 +67,4 @@ int getDayNumber() {
       continue;
     }
   }
-}
-
-int parseCommandLineArguments(int argc, char* argv[]) {
-  if (argc < 2) return getDayNumber();
-  else return std::atoi(argv[1]);
 }
