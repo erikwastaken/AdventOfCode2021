@@ -1,16 +1,17 @@
 #include "advent_factory.h"
-std::unique_ptr<AdventDay> AdventFactory::createDay(int day, std::string path) const {
+
+std::unique_ptr<AdventDay> AdventFactory::createDay(const int day, const std::string path) const {
   try {
     auto fr = FileReader(path);
     switch (day) {
       default: return std::unique_ptr<AdventDay>{ new DefaultDay() };
     }
   } catch (FileReaderException& e) {
-    throw AoCException(e.what());
+    throw FactoryException(e.what());
   }
 }
 
-std::unique_ptr<AdventDay> AdventFactory::createDayWithDefaultPath(int num) const {
+std::unique_ptr<AdventDay> AdventFactory::createDayWithDefaultPath(const int num) const {
   std::string path {"inputs/inputDay" + std::to_string(num) + ".txt"};
   return createDay(num, path);
 }

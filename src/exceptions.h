@@ -1,5 +1,6 @@
 #ifndef EXCEPTIONS_H
 #define EXCEPTIONS_H
+
 class AoCException : public std::exception {
   public:
     AoCException(std::string s) : _msg(s) {};
@@ -18,4 +19,5 @@ class FileReaderException : public AoCException {
   public:
     FileReaderException(std::string s) : AoCException(s) {};
 };
+
 #endif

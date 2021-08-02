@@ -10,10 +10,11 @@
 
 class AdventFactory {
   public:
-    std::unique_ptr<AdventDay> createDay(int day, std::string path) const;
-    std::unique_ptr<AdventDay> createDayWithDefaultPath(int num) const;
+    std::unique_ptr<AdventDay> createDay(const int day, const std::string path) const;
+    std::unique_ptr<AdventDay> createDayWithDefaultPath(const int num) const;
     std::unique_ptr<AdventDay> createDayFromCommandLine(int argc, char* argv[]) const;
   private:
     int getDayFromUser() const;
 };
+
 #endif
