@@ -3,10 +3,10 @@
 #include <iostream>
 #include <memory>
 #include <cstdlib>
-#include "advent_day.h"
-#include "default_day.h"
-#include "file_reader.h"
-#include "exceptions.h"
+#include "advent_day.hpp"
+#include "default_day.hpp"
+#include "file_reader.hpp"
+#include "exceptions.hpp"
 
 class AdventFactory {
   public:

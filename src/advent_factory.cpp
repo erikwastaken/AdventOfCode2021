@@ -1,4 +1,4 @@
-#include "advent_factory.h"
+#include "advent_factory.hpp"
 
 std::unique_ptr<AdventDay> AdventFactory::createDay(const int day, const std::string path) const {
   try {

@@ -1,6 +1,6 @@
 #ifndef DEFAULT_DAY_H
 #define DEFAULT_DAY_H
-#include "advent_day.h"
+#include "advent_day.hpp"
 
 class DefaultDay : public AdventDay {
   public:

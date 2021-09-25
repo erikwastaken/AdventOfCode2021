@@ -3,7 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include "exceptions.h"
+#include "exceptions.hpp"
 
 class FileReader {
   public:

@@ -1,4 +1,4 @@
-#include "file_reader.h"
+#include "file_reader.hpp"
 
 FileReader::FileReader(std::string path) {
   _file.open(path);

@@ -1,7 +1,7 @@
 #include <iostream>
-#include "advent_day.h"
-#include "advent_factory.h"
-#include "exceptions.h"
+#include "advent_day.hpp"
+#include "advent_factory.hpp"
+#include "exceptions.hpp"
 
 int main(int argc, char* argv[]) {
   try {
