@@ -1,6 +1,6 @@
 #include "file_reader.hpp"
 
-FileReader::FileReader(std::string path) {
+FileReader::FileReader(const std::string& path) {
   _file.open(path);
   if (!_file.is_open()) throw FileReaderException(path + " could not be opened");
 }

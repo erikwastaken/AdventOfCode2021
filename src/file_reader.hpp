@@ -7,7 +7,7 @@
 
 class FileReader {
   public:
-    FileReader(const std::string);
+    FileReader(const std::string&);
     ~FileReader();
     std::vector<std::string> getLines();
   private:

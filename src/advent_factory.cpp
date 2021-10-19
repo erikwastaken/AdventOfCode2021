@@ -1,10 +1,10 @@
 #include "advent_factory.hpp"
 
-std::unique_ptr<AdventDay> AdventFactory::createDay(const int day, const std::string path) const {
+std::unique_ptr<AdventDay> AdventFactory::createDay(const int day, const std::string& path) const {
   try {
     auto fr = FileReader(path);
     switch (day) {
-      default: return std::unique_ptr<AdventDay>{ new DefaultDay() };
+      default: return std::make_unique<DefaultDay>();
     }
   } catch (FileReaderException& e) {
     throw FactoryException(e.what());
