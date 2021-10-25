@@ -16,25 +16,32 @@ void execute(T day) {
   std::cout << "Part2: " << day.part2() << "\n";
 }
 
-auto getFileContents(std::string path) {
+auto getFileContents(const std::string& path) {
   auto fr = aoc21::FileReader(path);
   return fr.getLines();
 }
 
-void runDay(int day) {
+void runDay(int day,std::string& path) {
   switch (day) {
     default: execute(aoc21::DefaultDay());
   }
 }
 
+std::string getDefaultPath(int d) {
+  if (d < 10)
+    return "input/inputDay0" + std::to_string(d) + ".txt";
+  return "input/inputDay" + std::to_string(d) + ".txt";
+}
+
 int main(int argc, char* argv[]) {
   try {
-    if (argc != 2)
+    if (argc != 2 && argc != 3)
       return 1;
     auto d = std::atoi(argv[1]);
     if (d == 0 || d > 25)
       return 2;
-    runDay(d);
+    auto path = argc == 2 ? getDefaultPath(d) : std::string(argv[2]);
+    runDay(d,path);
   } catch (aoc21::AoCException& e) {
     std::cerr << e.what() << '\n';
   }
