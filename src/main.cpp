@@ -33,13 +33,18 @@ std::string getDefaultPath(int d) {
   return "input/inputDay" + std::to_string(d) + ".txt";
 }
 
+auto getDayFromCommandLine(int argc, char* argv[]) {
+    if (argc != 2 && argc != 3)
+      throw aoc21::ParameterException("Wrong number of parameters");
+    auto d = std::atoi(argv[1]);
+    if (d < 1 || d > 25)
+      throw aoc21::ParameterException("Day out of range");
+    return d;
+}
+
 int main(int argc, char* argv[]) {
   try {
-    if (argc != 2 && argc != 3)
-      return 1;
-    auto d = std::atoi(argv[1]);
-    if (d == 0 || d > 25)
-      return 2;
+    auto d = getDayFromCommandLine(argc, argv);
     auto path = argc == 2 ? getDefaultPath(d) : std::string(argv[2]);
     runDay(d,path);
   } catch (aoc21::AoCException& e) {

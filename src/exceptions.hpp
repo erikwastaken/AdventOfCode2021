@@ -12,14 +12,14 @@ namespace aoc21 {
       std::string _msg;
   };
 
-  class FactoryException : public AoCException {
-    public:
-      FactoryException(std::string s) : AoCException(s) {};
-  };
-
   class FileReaderException : public AoCException {
     public:
       FileReaderException(std::string s) : AoCException(s) {};
+  };
+
+  class ParameterException : public AoCException {
+    public:
+      ParameterException(std::string s) : AoCException(s) {};
   };
 
 };
