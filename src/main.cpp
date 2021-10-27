@@ -21,19 +21,19 @@ auto getFileContents(const std::string& path) {
   return fr.getLines();
 }
 
-void runDay(int day,std::string& path) {
+constexpr void runDay(const int day, const std::string& path) {
   switch (day) {
     default: execute(aoc21::DefaultDay());
   }
 }
 
-std::string getDefaultPath(int d) {
+std::string getDefaultPath(const int d) {
   if (d < 10)
     return "input/inputDay0" + std::to_string(d) + ".txt";
   return "input/inputDay" + std::to_string(d) + ".txt";
 }
 
-auto getDayFromCommandLine(int argc, char* argv[]) {
+constexpr auto getDayFromCommandLine(const int argc, char* argv[]) {
     if (argc != 2 && argc != 3)
       throw aoc21::ParameterException("Wrong number of parameters");
     auto d = std::atoi(argv[1]);

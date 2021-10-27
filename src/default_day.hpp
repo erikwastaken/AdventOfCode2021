@@ -5,8 +5,8 @@ namespace aoc21 {
 
   class DefaultDay {
     public:
-      std::string part1() { return "Not implemented"; };
-      std::string part2() { return "Not implemented"; };
+      std::string part1() const { return "Not implemented"; };
+      std::string part2() const { return "Not implemented"; };
   };
 
 };
