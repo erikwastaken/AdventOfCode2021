@@ -1,4 +1,5 @@
 aoc21
+testsuite
 *.o
 tags
 input/
