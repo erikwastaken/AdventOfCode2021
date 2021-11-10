@@ -3,3 +3,4 @@ testsuite
 *.o
 tags
 input/
+.idea
