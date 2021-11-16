@@ -7,7 +7,7 @@ from the command line in the project root
 
 ## How it works
 <pre>
-aoc21 <i>day [path to input file]</i>
+./aoc21 <i>day [path to input file]</i>
 </pre>
 The <i>day</i> is expected to be a number between 1 and 25. If it is outside
 this range, an error will be issued.\
