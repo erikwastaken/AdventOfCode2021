@@ -1,5 +1,6 @@
 #ifndef DEFAULT_DAY_H
 #define DEFAULT_DAY_H
+#include <string>
 
 namespace aoc21 {
 

@@ -1,5 +1,6 @@
 #ifndef EXCEPTIONS_HPP
 #define EXCEPTIONS_HPP
+#include <string>
 
 namespace aoc21 {
 
