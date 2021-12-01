@@ -15,6 +15,12 @@ SCENARIO( "Day 1" ) {
         REQUIRE(cut.part1() == "7");
       }
     }
+
+    WHEN( "part 2" ) {
+      THEN( "result is 5" ) {
+        REQUIRE(cut.part2() == "5");
+      }
+    }
   }
 
 }
