@@ -7,9 +7,9 @@ namespace aoc21 {
 
   class Day01 {
     public:
-      Day01(const std::vector<std::string>& input);
+      explicit Day01(const std::vector<std::string>& input);
       std::string part1() const;
-      std::string part2();
+      std::string part2() const;
     private:
       std::vector<int> _depths;
   };

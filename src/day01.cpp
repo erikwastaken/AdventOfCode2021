@@ -19,7 +19,7 @@ std::string aoc21::Day01::part1() const {
   return std::to_string(depthIncreases);
 }
 
-std::string aoc21::Day01::part2() {
+std::string aoc21::Day01::part2() const {
   auto depthIncreases = 0;
   auto previous = _depths[0] + _depths[1] + _depths[2];
   for (auto i = 1; i < _depths.size() - 2; ++i) {
