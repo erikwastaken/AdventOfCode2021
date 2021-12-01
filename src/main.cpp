@@ -3,6 +3,7 @@
 #include "default_day.hpp"
 #include "file_reader.hpp"
 #include "exceptions.hpp"
+#include "day01.hpp"
 
 template<typename T>
 concept Day = requires(T d) {
@@ -21,8 +22,11 @@ auto getFileContents(const std::string& path) {
   return fr.getLines();
 }
 
-constexpr void runDay(const int day, const std::string& path) {
+void runDay(const int day, const std::string& path) {
   switch (day) {
+    case 1: 
+      execute(aoc21::Day01(getFileContents(path)));
+      break;
     default: execute(aoc21::DefaultDay());
   }
 }
