@@ -17,5 +17,11 @@ SCENARIO( "Day 2" ) {
         REQUIRE( cut.part1() == "150" );
       }
     }
+
+    WHEN( "Part 2: multiply final depth and horizontal position" ) {
+      THEN( "result is 900" ) {
+        REQUIRE( cut.part2() == "900" );
+      }
+    }
   }
 }

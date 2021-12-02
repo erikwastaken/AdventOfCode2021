@@ -26,6 +26,27 @@ std::string aoc21::Day02::part1() const {
   return std::to_string(res);
 }
 
+std::string aoc21::Day02::part2() const {
+  Point position;
+  position.x = 0;
+  position.y = 0;
+  int aim = 0;
+  for (const auto& ins : _instructions) {
+    if (ins.direction == "forward") {
+      position.x += ins.distance;
+      position.y += aim * ins.distance;
+    } else if (ins.direction == "down") {
+      aim += ins.distance;
+    } else if (ins.direction == "up") {
+      aim -= ins.distance;
+    } else {
+      throw AoCException("instruction not supported");
+    }
+  }
+  int res = position.x * position.y;
+  return std::to_string(res);
+}
+
 aoc21::Instruction aoc21::Day02::parseInputLine(const std::string& line) {
   int splitPoint = line.find(" ");
   Instruction result;

@@ -19,7 +19,7 @@ namespace aoc21 {
     public:
       Day02(const std::vector<std::string>&);
       std::string part1() const;
-      std::string part2() const { return "Not implemented"; };
+      std::string part2() const;
 
     private:
       std::vector<Instruction> _instructions {};
