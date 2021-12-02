@@ -8,33 +8,30 @@ aoc21::Day02::Day02(const std::vector<std::string>& input) {
 }
 
 std::string aoc21::Day02::part1() const {
-  Point position;
-  position.x = 0;
-  position.y = 0;
+  int hpos = 0;
+  int depth = 0;
   for (const auto& ins : _instructions) {
     if (ins.direction == "forward") {
-      position.x += ins.distance;
+      hpos += ins.distance;
     } else if (ins.direction == "down") {
-      position.y += ins.distance;
+      depth += ins.distance;
     } else if (ins.direction == "up") {
-      position.y -= ins.distance;
+      depth -= ins.distance;
     } else {
       throw AoCException("instruction not supported");
     }
   }
-  int res = position.x * position.y;
-  return std::to_string(res);
+  return std::to_string(hpos * depth);
 }
 
 std::string aoc21::Day02::part2() const {
-  Point position;
-  position.x = 0;
-  position.y = 0;
+  int hpos = 0;
+  int depth = 0;
   int aim = 0;
   for (const auto& ins : _instructions) {
     if (ins.direction == "forward") {
-      position.x += ins.distance;
-      position.y += aim * ins.distance;
+      hpos += ins.distance;
+      depth += aim * ins.distance;
     } else if (ins.direction == "down") {
       aim += ins.distance;
     } else if (ins.direction == "up") {
@@ -43,11 +40,10 @@ std::string aoc21::Day02::part2() const {
       throw AoCException("instruction not supported");
     }
   }
-  int res = position.x * position.y;
-  return std::to_string(res);
+  return std::to_string(hpos*depth);
 }
 
-aoc21::Instruction aoc21::Day02::parseInputLine(const std::string& line) {
+aoc21::Day02::Instruction aoc21::Day02::parseInputLine(const std::string& line) const {
   int splitPoint = line.find(" ");
   Instruction result;
   result.direction = line.substr(0,splitPoint);

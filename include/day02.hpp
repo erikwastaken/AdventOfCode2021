@@ -5,16 +5,7 @@
 
 namespace aoc21 {
 
-  struct Instruction {
-    std::string direction;
-    int distance;
-  };
   
-  struct Point {
-    int x;
-    int y;
-  };
-
   class Day02 {
     public:
       Day02(const std::vector<std::string>&);
@@ -22,10 +13,12 @@ namespace aoc21 {
       std::string part2() const;
 
     private:
+      struct Instruction {
+        std::string direction;
+        int distance;
+      };
       std::vector<Instruction> _instructions {};
-      Point _position;
-
-      Instruction parseInputLine(const std::string&);
+      Instruction parseInputLine(const std::string&) const;
   };
 
 }
