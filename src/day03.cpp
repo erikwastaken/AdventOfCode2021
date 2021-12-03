@@ -53,9 +53,9 @@ namespace aoc21 {
     for (int i = _bit_length - 1; keep.size() != 1; --i) {
       if (i == -1) throw AoCException("Could not narrow down to single value");
       auto tmp = std::vector<int>();
-      auto leastCommon = getCommon(i,keep);
+      auto favouredBit = getCommon(i,keep);
       for (const auto& n : keep) {
-        if ( ((n >> i) & 1) == leastCommon) {
+        if ( ((n >> i) & 1) == favouredBit) {
           tmp.push_back(n);
         }
       }
