@@ -4,6 +4,21 @@
 #include "exceptions.hpp"
 
 namespace aoc21 {
+
+  int getMostCommon(const int position, const std::vector<int>& values) {
+    int countOn = 0;
+    for (const auto& n : values) {
+      if ( ((n >> position) & 1) == 1 ) {
+        ++countOn;
+      }
+    }
+    return (2 * countOn < values.size()) ? 0 : 1;
+  };
+
+  int getLeastCommon(const int position, const std::vector<int>& values) {
+    return 1 ^ getMostCommon(position, values);
+  };
+
   Day03::Day03(const std::vector<std::string>& input) {
     for (const auto& line : input) {
       auto number = std::stoi(line, nullptr, 2);
@@ -28,41 +43,17 @@ namespace aoc21 {
   };
 
   std::string Day03::part2() const {
-    return std::to_string(getOxygenRating() * getCo2Rating());
-  }
+    auto oxygen = getRating(&getMostCommon);
+    auto co2Scrubber = getRating(&getLeastCommon);
+    return std::to_string(oxygen * co2Scrubber);
+  };
 
-  int Day03::getMostCommon(const int position, const std::vector<int>& values) const {
-    int countOn = 0;
-    for (const auto& n : values) {
-      if ( ((n >> position) & 1) == 1 ) {
-        ++countOn;
-      }
-    }
-    return (2 * countOn < values.size()) ? 0 : 1;
-  }
-
-  int Day03::getOxygenRating() const {
+  int Day03::getRating(std::function<int(int, const std::vector<int>&)> getCommon) const {
     auto keep = _diagnostics;
     for (int i = _bit_length - 1; keep.size() != 1; --i) {
       if (i == -1) throw AoCException("Could not narrow down to single value");
       auto tmp = std::vector<int>();
-      auto mostCommon = getMostCommon(i, keep);
-      for (const auto& n : keep) {
-        if ( ((n >> i) & 1) == mostCommon) {
-          tmp.push_back(n);
-        }
-      }
-      keep = tmp;
-    }
-    return keep[0];
-  }
-
-  int Day03::getCo2Rating() const {
-    auto keep = _diagnostics;
-    for (int i = _bit_length - 1; keep.size() != 1; --i) {
-      if (i == -1) throw AoCException("Could not narrow down to single value");
-      auto tmp = std::vector<int>();
-      auto leastCommon = ( 1 ^ getMostCommon(i, keep));
+      auto leastCommon = getCommon(i,keep);
       for (const auto& n : keep) {
         if ( ((n >> i) & 1) == leastCommon) {
           tmp.push_back(n);
@@ -71,5 +62,6 @@ namespace aoc21 {
       keep = tmp;
     }
     return keep[0];
-  }
+  };
+
 }
