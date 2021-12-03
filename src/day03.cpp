@@ -28,29 +28,23 @@ namespace aoc21 {
   };
 
   std::string Day03::part2() const {
-    auto oxygen = getOxygenRating();
-    auto co2scrubber = getCo2Rating();
-    return std::to_string(oxygen * co2scrubber);
+    return std::to_string(getOxygenRating() * getCo2Rating());
   }
 
   int Day03::getMostCommon(const int position, const std::vector<int>& values) const {
     int countOn = 0;
-    int countOff = 0;
     for (const auto& n : values) {
       if ( ((n >> position) & 1) == 1 ) {
         ++countOn;
-      } else {
-        ++countOff;
       }
     }
-    return (countOn < countOff) ? 0 : 1;
+    return (2 * countOn < values.size()) ? 0 : 1;
   }
 
   int Day03::getOxygenRating() const {
     auto keep = _diagnostics;
     for (int i = _bit_length - 1; keep.size() != 1; --i) {
-      if (i == -1)
-        throw AoCException("Could not narrow down to single value");
+      if (i == -1) throw AoCException("Could not narrow down to single value");
       auto tmp = std::vector<int>();
       auto mostCommon = getMostCommon(i, keep);
       for (const auto& n : keep) {
@@ -66,8 +60,7 @@ namespace aoc21 {
   int Day03::getCo2Rating() const {
     auto keep = _diagnostics;
     for (int i = _bit_length - 1; keep.size() != 1; --i) {
-      if (i == -1)
-        throw AoCException("Could not narrow down to single value");
+      if (i == -1) throw AoCException("Could not narrow down to single value");
       auto tmp = std::vector<int>();
       auto leastCommon = ( 1 ^ getMostCommon(i, keep));
       for (const auto& n : keep) {
