@@ -13,6 +13,7 @@ namespace aoc21 {
       explicit BingoBoard(const std::vector<std::string>& input);
       void mark(int);
       bool isComplete();
+      int calculatePoints();
 
     private:
       std::array<int,25> _numbers {};
@@ -23,10 +24,11 @@ namespace aoc21 {
   class Day04 {
     public:
       explicit Day04(const std::vector<std::string>&);
-      std::string part1() const;
+      std::string part1();
       std::string part2() const;
     private:
-      std::vector<int> _numbers;
+      std::vector<int> _numbers {};
+      std::vector<BingoBoard> _boards {};
   };
 
 }

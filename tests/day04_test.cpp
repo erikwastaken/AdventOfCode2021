@@ -49,7 +49,7 @@ SCENARIO( "Parsing input" ) {
 }
 
 SCENARIO( "Bingo Board" ) {
-    GIVEN( "some input containing 5" ) {
+    GIVEN( "some input" ) {
         std::vector<std::string> input = {
                 "22 13 17 11  0",
                 "8  2 23  4 24",
@@ -76,6 +76,26 @@ SCENARIO( "Bingo Board" ) {
             cut.mark(20);
             THEN( "board is complete" ) {
                 REQUIRE( cut.isComplete() );
+            }
+        }
+    }
+    GIVEN( "a completed board" ) {
+        std::vector<int> numbers {7,4,9,5,11,17,23,2,0,14,21,24};
+        std::vector<std::string> input {
+                "14 21 17 24  4",
+                "10 16 15  9 19",
+                "18  8 23 26 20",
+                "22 11 13  6  5",
+                "2  0 12  3  7"
+        };
+        auto cut = aoc21::BingoBoard(input);
+        for (auto num : numbers) {
+            cut.mark(num);
+        }
+        WHEN( "calculating the final score" ) {
+            auto score = cut.calculatePoints();
+            THEN( "score is 188") {
+                REQUIRE( score == 188 );
             }
         }
     }
