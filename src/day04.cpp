@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "exceptions.hpp"
+#include <unordered_set>
 
 aoc21::Day04::Day04(const std::vector<std::string> &input) {
     auto const numberEndIterator = std::find(input.begin(), input.end(), "");
@@ -39,8 +40,27 @@ std::string aoc21::Day04::part1() {
     throw AoCException("No winner");
 }
 
-std::string aoc21::Day04::part2() const {
-    return "";
+std::string aoc21::Day04::part2() {
+    auto completed = std::unordered_set<int>();
+    int lastCompletedIdx = -1;
+    int score = 0;
+    for (auto number : _numbers) {
+        for (auto i=0; i!= _boards.size(); ++i) {
+            if (completed.contains(i)) {
+                continue;
+            }
+            _boards[i].mark(number);
+            if (_boards[i].isComplete()) {
+                completed.insert(i);
+                lastCompletedIdx = i;
+            }
+        }
+        if (completed.size() == _boards.size()) {
+            score = number * _boards[lastCompletedIdx].calculatePoints();
+            break;
+        }
+    }
+    return std::to_string(score);
 }
 
 std::vector<int> aoc21::parseBingoNumbers(const std::string &input) {
