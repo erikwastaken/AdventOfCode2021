@@ -33,6 +33,10 @@ namespace aoc21 {
     private:
       std::vector<int> _numbers {};
       std::vector<BingoBoard> _boards {};
+      void fillNumbers(const std::vector<std::string> &input,
+                       const std::vector<std::string, std::allocator<std::string>>::const_iterator &numberEndIterator);
+      void fillBoards(const std::vector<std::string> &input,
+                      const std::vector<std::string, std::allocator<std::string>>::const_iterator &numberEndIterator);
   };
 
 }

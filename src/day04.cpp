@@ -3,19 +3,21 @@
 #include <vector>
 #include "exceptions.hpp"
 #include <unordered_set>
+#include "utils.hpp"
 
 aoc21::Day04::Day04(const std::vector<std::string> &input) {
     auto const numberEndIterator = std::find(input.begin(), input.end(), "");
-    for (auto it = input.begin(); it != numberEndIterator; ++it) {
-        for (auto num: parseBingoNumbers(*it)) {
-            this->_numbers.push_back(num);
-        }
-    }
+    fillNumbers(input, numberEndIterator);
+    fillBoards(input, numberEndIterator);
+}
+
+void aoc21::Day04::fillBoards(const std::vector<std::string> &input,
+                              const std::vector<std::string, std::allocator<std::string>>::const_iterator &numberEndIterator) {
     auto buffer = std::vector<std::string>();
     for (auto it = numberEndIterator + 1; it != input.end(); ++it) {
         if ((*it).empty()) {
             if (!buffer.empty()) {
-                this->_boards.emplace_back(BingoBoard(buffer));
+                _boards.emplace_back(BingoBoard(buffer));
                 buffer = std::vector<std::string>();
             }
             continue;
@@ -24,7 +26,16 @@ aoc21::Day04::Day04(const std::vector<std::string> &input) {
         }
     }
     if (!buffer.empty()) {
-        this->_boards.emplace_back(BingoBoard(buffer));
+        _boards.emplace_back(BingoBoard(buffer));
+    }
+}
+
+void aoc21::Day04::fillNumbers(const std::vector<std::string> &input,
+                               const std::vector<std::string, std::allocator<std::string>>::const_iterator &numberEndIterator) {
+    for (auto it = input.begin(); it != numberEndIterator; ++it) {
+        for (auto num: parseBingoNumbers(*it)) {
+            _numbers.push_back(num);
+        }
     }
 }
 
@@ -67,17 +78,8 @@ std::string aoc21::Day04::part2() const {
 
 std::vector<int> aoc21::parseBingoNumbers(const std::string &input) {
     auto numbers = std::vector<int>();
-    auto buffer = std::string();
-    for (auto c: input) {
-        if (c == ',') {
-            numbers.push_back(std::stoi(buffer));
-            buffer = std::string();
-        } else {
-            buffer += c;
-        }
-    }
-    if (buffer.length() != 0) {
-        numbers.push_back(std::stoi(buffer));
+    for (const auto &s : splitString(input, ',')) {
+        numbers.emplace_back(std::stoi(s));
     }
     return numbers;
 }
@@ -85,21 +87,8 @@ std::vector<int> aoc21::parseBingoNumbers(const std::string &input) {
 aoc21::BingoBoard::BingoBoard(const std::vector<std::string> &input) {
     if (input.size() > 5) throw AoCException("Bingo Board overflow");
     for (auto i = -1; const auto &line: input) {
-        auto buffer = std::string();
-        for (auto c: line) {
-            if (c == ' ') {
-                if (buffer.length() == 0) {
-                    continue;
-                } else {
-                    this->_numbers[++i] = std::stoi(buffer);
-                    buffer = std::string();
-                }
-            } else {
-                buffer += c;
-            }
-        }
-        if (buffer.length() != 0) {
-            this->_numbers[++i] = std::stoi(buffer);
+        for (const auto &s : splitString(line, ' ')) {
+            _numbers[++i] = std::stoi(s);
         }
     }
 }
