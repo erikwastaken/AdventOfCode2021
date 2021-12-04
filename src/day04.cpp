@@ -28,9 +28,10 @@ aoc21::Day04::Day04(const std::vector<std::string> &input) {
     }
 }
 
-std::string aoc21::Day04::part1() {
+std::string aoc21::Day04::part1() const {
+    auto boards = _boards;
     for (auto number : _numbers) {
-        for (auto& board : _boards) {
+        for (auto& board : boards) {
             board.mark(number);
             if (board.isComplete()) {
                 return std::to_string(board.calculatePoints() * number);
@@ -40,23 +41,24 @@ std::string aoc21::Day04::part1() {
     throw AoCException("No winner");
 }
 
-std::string aoc21::Day04::part2() {
+std::string aoc21::Day04::part2() const {
+    auto boards = _boards;
     auto completed = std::unordered_set<int>();
     int lastCompletedIdx = -1;
     int score = 0;
     for (auto number : _numbers) {
-        for (auto i=0; i!= _boards.size(); ++i) {
+        for (auto i=0; i!= boards.size(); ++i) {
             if (completed.contains(i)) {
                 continue;
             }
-            _boards[i].mark(number);
-            if (_boards[i].isComplete()) {
+            boards[i].mark(number);
+            if (boards[i].isComplete()) {
                 completed.insert(i);
                 lastCompletedIdx = i;
             }
         }
-        if (completed.size() == _boards.size()) {
-            score = number * _boards[lastCompletedIdx].calculatePoints();
+        if (completed.size() == boards.size()) {
+            score = number * boards[lastCompletedIdx].calculatePoints();
             break;
         }
     }
@@ -107,29 +109,37 @@ void aoc21::BingoBoard::mark(int calledNumber) {
         if (_numbers[i] == calledNumber) {
             auto row = i / 5;
             auto col = i % 5;
-            _markedRows[row] |= (1 << (4 - col));
-            _markedCols[col] |= (1 << (4 - row));
+            markPosition(row, col);
         }
     }
 }
 
-bool aoc21::BingoBoard::isComplete() {
+void aoc21::BingoBoard::markPosition(int row, int col) {
+    _markedRows[row] |= (1 << (4 - col));
+    _markedCols[col] |= (1 << (4 - row));
+}
+
+bool aoc21::BingoBoard::isComplete() const {
     for (auto i = 0; i != 5; ++i) {
-        if (_markedRows[i] == 0b11111 || _markedCols[i] == 0b11111)
+        if (_markedRows[i] == FULL || _markedCols[i] == FULL)
             return true;
     }
     return false;
 }
 
-int aoc21::BingoBoard::calculatePoints() {
+int aoc21::BingoBoard::calculatePoints() const {
     if (!isComplete()) throw AoCException("Board not complete");
     auto result = 0;
     for (auto i=0; i!=25; ++i) {
         auto row = i / 5;
         auto col = i % 5;
-        if (!(_markedRows[row] >> (4-col) & 1)) {
+        if (!isPositionMarked(row, col)) {
             result += _numbers[i];
         }
     }
     return result;
+}
+
+bool aoc21::BingoBoard::isPositionMarked(int row, int col) const {
+    return (_markedRows[row] >> (4 - col) & 1) == 1;
 }
