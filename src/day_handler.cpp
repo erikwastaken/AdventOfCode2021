@@ -6,6 +6,20 @@
 #include "day03.hpp"
 #include "day04.hpp"
 #include "day05.hpp"
+#include <chrono>
+
+template<aoc21::Day T>
+void aoc21::execute(const T& day) {
+    auto t0 = std::chrono::high_resolution_clock::now();
+    std::cout << "Part1: " << day.part1() << '\n';
+    auto t1 = std::chrono::high_resolution_clock::now();
+    auto diff1 = std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0);
+    std::cout << "Executed in " << diff1.count() << "ms\n";
+    std::cout << "Part2: " << day.part2() << '\n';
+    auto t2 = std::chrono::high_resolution_clock::now();
+    auto diff2 = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
+    std::cout << "Executed in " << diff2.count() << "ms\n";
+}
 
 void aoc21::runDay(const int day, const std::string &path) {
     switch (day) {

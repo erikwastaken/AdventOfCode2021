@@ -12,11 +12,7 @@ namespace aoc21 {
   };
 
   template<Day T>
-  inline void execute(const T& day) {
-    std::cout << "Part1: " << day.part1() << '\n';
-    std::cout << "Part2: " << day.part2() << '\n';
-  }
-
+  void execute(const T& day);
   void runDay(int day, const std::string& path);
 
 }
