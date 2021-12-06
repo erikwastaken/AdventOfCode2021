@@ -1,12 +1,13 @@
-#include <array>
 #include "day06.hpp"
 #include "utils.hpp"
 #include <numeric>
+#include <array>
 
 aoc21::Day06::Day06(const std::string &input) {
     auto splits = splitString(input, ',');
+    // track the fish in an array (index == remaining days, value = number of fish with this many days
     for (const auto &s : splits) {
-        _initialState.emplace_back(std::stoi(s));
+        ++_initialState[std::stoi(s)];
     }
 }
 
@@ -19,11 +20,7 @@ std::string aoc21::Day06::part2() const {
 }
 
 unsigned long aoc21::Day06::modelGrowth(int days) const {
-    // track the fish in an array (index == remaining days, value = number of fish with this many days
-    std::array<unsigned long,9> fish {};
-    for (auto s : _initialState) {
-        ++fish[s];
-    }
+    auto fish = _initialState;
     for (auto i = 0; i != days; ++i) {
         auto tmp = fish[0];
         for (auto ii = 0; ii != fish.size() - 1; ++ii) {

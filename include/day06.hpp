@@ -2,7 +2,7 @@
 #define AOC21_DAY06_HPP
 
 #include <string>
-#include <vector>
+#include <array>
 
 namespace aoc21 {
 
@@ -13,7 +13,7 @@ namespace aoc21 {
             std::string part2() const;
             unsigned long modelGrowth(int days) const;
         private:
-            std::vector<int> _initialState {};
+            std::array<unsigned long,9> _initialState {};
     };
 
 }
