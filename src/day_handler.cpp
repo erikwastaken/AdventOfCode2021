@@ -14,12 +14,21 @@ void aoc21::execute(const T& day) {
     auto t0 = std::chrono::high_resolution_clock::now();
     std::cout << "Part1: " << day.part1() << '\n';
     auto t1 = std::chrono::high_resolution_clock::now();
-    auto diff1 = std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0);
-    std::cout << "Executed in " << diff1.count() << "ms\n";
+    printExecutionTime(t0,t1);
+
     std::cout << "Part2: " << day.part2() << '\n';
     auto t2 = std::chrono::high_resolution_clock::now();
-    auto diff2 = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
-    std::cout << "Executed in " << diff2.count() << "ms\n";
+    printExecutionTime(t1,t2);
+}
+
+void aoc21::printExecutionTime(const std::chrono::time_point<std::chrono::high_resolution_clock> &start,const std::chrono::time_point<std::chrono::high_resolution_clock> &end) {
+    auto diff1 = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    if (diff1.count() == 0) {
+        std::chrono::duration<double, std::milli> diff1_double = end - start;
+        std::cout << "Executed in " << diff1_double.count() << "ms\n";
+    } else {
+        std::cout << "Executed in " << diff1.count() << "ms\n";
+    }
 }
 
 void aoc21::runDay(const int day, const std::string &path) {
