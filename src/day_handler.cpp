@@ -8,6 +8,7 @@
 #include "day05.hpp"
 #include "day06.hpp"
 #include "day07.hpp"
+#include "day08.hpp"
 #include <chrono>
 
 template<aoc21::Day T>
@@ -54,6 +55,9 @@ void aoc21::runDay(const int day, const std::string &path) {
             break;
         case 7:
             execute(aoc21::Day07(aoc21::getFileContents(path)[0]));
+            break;
+        case 8:
+            execute(aoc21::Day08(aoc21::getFileContents(path)));
             break;
         default:
             execute(aoc21::DefaultDay());
