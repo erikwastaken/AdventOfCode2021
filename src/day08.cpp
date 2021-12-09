@@ -1,5 +1,8 @@
 #include "day08.hpp"
 #include "utils.hpp"
+#include <unordered_map>
+#include <array>
+#include <algorithm>
 
 aoc21::Day08::Day08(const std::vector<std::string> &input) {
     for (const auto &line : input) {
@@ -7,9 +10,11 @@ aoc21::Day08::Day08(const std::vector<std::string> &input) {
         SignalSet s;
         for (auto i = -1; const auto &p : splitString(s1[0], ' ')) {
             s.patterns[++i] = p;
+            sort(s.patterns[i].begin(), s.patterns[i].end());
         }
         for (auto i = -1; const auto &o : splitString(s1[1], ' ')) {
             s.output[++i] = o;
+            sort(s.output[i].begin(), s.output[i].end());
         }
         _signalSets.emplace_back(s);
     }
@@ -28,6 +33,14 @@ std::string aoc21::Day08::part1() const {
 }
 
 std::string aoc21::Day08::part2() const {
+    return newPart2();
+}
+
+bool aoc21::Day08::contains(const std::string &str, char c) const {
+    return str.find(c) != std::string::npos;
+}
+
+std::string aoc21::Day08::oldPart2() const {
     auto sum = 0;
     for (const auto &s : _signalSets) {
         char top = ' ';
@@ -176,6 +189,89 @@ std::string aoc21::Day08::part2() const {
     return std::to_string(sum);
 }
 
-bool aoc21::Day08::contains(const std::string &str, char c) const {
-    return str.find(c) != std::string::npos;
+std::string aoc21::Day08::newPart2() const {
+    auto sum = 0;
+    for (const auto &s : _signalSets) {
+        auto frequencies = std::unordered_map<char,int>();
+        for (const auto &p : s.patterns) {
+            for (auto c : p) {
+                ++frequencies[c];
+            }
+        }
+
+        auto numbers = std::array<std::string,10>();
+        for (const auto &p : s.patterns) {
+            auto freq_4 = 0;
+            auto freq_6 = 0;
+            auto freq_7 = 0;
+            auto freq_8 = 0;
+            auto freq_9 = 0;
+            switch (p.length()) {
+                case 2:
+                    numbers[1] = p;
+                    break;
+                case 3:
+                    numbers[7] = p;
+                    break;
+                case 4:
+                    numbers[4] = p;
+                    break;
+                case 5:
+                    for (auto c : p) {
+                        switch (frequencies[c]) {
+                            case 4: ++freq_4; break;
+                            case 6: ++freq_6; break;
+                            case 9: ++freq_9; break;
+                        }
+                    }
+                    if (freq_4 == 0 && freq_6 == 0) {
+                        numbers[3] = p;
+                        break;
+                    } else if (freq_4 == 0) {
+                        numbers[5] = p;
+                        break;
+                    } else if (freq_9 == 0) {
+                        numbers[2] = p;
+                        break;
+                    }
+                    break;
+                case 6: // 0,6,9
+                    for (auto c : p) {
+                        switch (frequencies[c]) {
+                            case 4: ++freq_4; break;
+                            case 7: ++freq_7; break;
+                            case 8: ++freq_8; break;
+                        }
+                    }
+                    if (freq_4 == 0) {
+                        numbers[9] = p;
+                        break;
+                    } else if (freq_7 == 1) {
+                        numbers[0] = p;
+                        break;
+                    } else if (freq_8 == 1) {
+                        numbers[6] = p;
+                        break;
+                    } else {
+                        break;
+                    }
+                case 7:
+                    numbers[8] = p;
+                    break;
+            }
+        }
+
+        auto outputNumber = std::string();
+        for (auto k=0; const auto &o : s.output) {
+            for (auto i=0; i!=numbers.size(); ++i) {
+                if (numbers[i] == o) {
+                   outputNumber += std::to_string(i);
+                   break;
+                }
+            }
+        }
+        sum += std::stoi(outputNumber);
+    }
+    
+    return std::to_string(sum);
 }

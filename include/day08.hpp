@@ -19,6 +19,8 @@ namespace aoc21 {
             };
             std::vector<SignalSet> _signalSets;
             bool contains(const std::string &str, char c) const;
+            std::string oldPart2() const;
+            std::string newPart2() const;
     };
 
 }
