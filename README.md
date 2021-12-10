@@ -2,8 +2,10 @@
 Find the calendar [here](https://adventofcode.com/2021)
 
 ## Setup
-- clone the repository and build it via the Makefile by running <i>make</i>
-from the command line in the project root
+Clone the repository and build it via the Makefile by running <i>make</i>
+from the command line in the project root.\
+Optionally, create a directory named <i>input</i> as the default location for the
+input files.
 
 ## How it works
 <pre>
