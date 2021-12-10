@@ -1,42 +1,9 @@
 #include "day10.hpp"
 #include <stack>
 
-aoc21::Day10::Day10(const std::vector<std::string> &input) : _lines(input) {}
-
-std::string aoc21::Day10::part1() const {
-    auto errorPoints = 0;
-    for (const auto &line : _lines) {
-        auto opened = std::stack<char>();
-        for (auto c : line) {
-            if (isOpen(c)) {
-                opened.push(c);
-            } else if (opened.empty() || c != match(opened.top())) {
-                errorPoints += points(c);
-                break;
-            } else {
-                opened.pop();
-            }
-        }
-    }
-    return std::to_string(errorPoints);
-}
-
-constexpr int aoc21::Day10::points(char c) const {
-    switch (c) {
-        case ')': return 3;
-        case ']': return 57;
-        case '}': return 1197;
-        case '>': return 25137;
-    }
-}
-
-constexpr bool aoc21::Day10::isOpen(char c) const {
-    return c == '(' || c == '[' || c == '{' || c == '<';
-}
-
-std::string aoc21::Day10::part2() const {
+aoc21::Day10::Day10(const std::vector<std::string> &input) {
     auto completionPoints = std::vector<unsigned long>();
-    for (const auto &line : _lines) {
+    for (const auto &line : input) {
         auto opened = std::stack<char>();
         auto isCorrupted = false;
         for (auto c : line) {
@@ -44,6 +11,7 @@ std::string aoc21::Day10::part2() const {
                 opened.push(c);
             } else if (opened.empty() || c != match(opened.top())) {
                 isCorrupted = true;
+                _errorPoints += points(c);
                 break; // disregard corrupted lines
             } else {
                 opened.pop();
@@ -54,7 +22,29 @@ std::string aoc21::Day10::part2() const {
     }
     auto medianIdx = completionPoints.size() / 2;
     std::sort(completionPoints.begin(), completionPoints.end());
-    return std::to_string(completionPoints[medianIdx]);
+    _completionPoints = completionPoints[medianIdx];
+}
+
+std::string aoc21::Day10::part1() const {
+    return std::to_string(_errorPoints);
+}
+
+std::string aoc21::Day10::part2() const {
+    return std::to_string(_completionPoints);
+}
+
+constexpr int aoc21::Day10::points(char c) const {
+    switch (c) {
+        case ')': return 3;
+        case ']': return 57;
+        case '}': return 1197;
+        case '>': return 25137;
+        default:  return 0;
+    }
+}
+
+constexpr bool aoc21::Day10::isOpen(char c) const {
+    return c == '(' || c == '[' || c == '{' || c == '<';
 }
 
 constexpr char aoc21::Day10::match(char c) const {
@@ -88,5 +78,6 @@ constexpr int aoc21::Day10::completionPoints(char c) const {
         case ']': return 2;
         case '}': return 3;
         case '>': return 4;
+        default: return 0;
     }
 }

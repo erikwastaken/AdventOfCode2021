@@ -13,7 +13,8 @@ namespace aoc21 {
             std::string part1() const;
             std::string part2() const;
         private:
-            std::vector<std::string> _lines;
+            int _errorPoints {0};
+            long long _completionPoints {0};
             constexpr int points(char c) const;
             constexpr bool isOpen(char c) const;
             constexpr char match(char c) const;
