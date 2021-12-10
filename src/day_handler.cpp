@@ -36,6 +36,7 @@ void aoc21::printExecutionTime(const std::chrono::time_point<std::chrono::high_r
 }
 
 void aoc21::runDay(const int day, const std::string &path) {
+    auto t0 = std::chrono::high_resolution_clock::now();
     switch (day) {
         case 1:
             execute(aoc21::Day01(aoc21::getFileContents(path)));
@@ -70,4 +71,7 @@ void aoc21::runDay(const int day, const std::string &path) {
         default:
             execute(aoc21::DefaultDay());
     }
+    auto t1 = std::chrono::high_resolution_clock::now();
+    auto execTime = std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0);
+    std::cout << "Total Execution Time: " << execTime.count() << "ms\n";
 }
