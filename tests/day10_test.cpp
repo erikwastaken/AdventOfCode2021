@@ -2,7 +2,7 @@
 #include "day10.hpp"
 
 
-SCENARIO("Day 10: Heightmap", "[day09]") {
+SCENARIO("Day 10: Heightmap", "[day10]") {
     GIVEN("test input") {
         std::vector<std::string> input = {
             "[({(<(())[]>[[{[]{<()<>>",
