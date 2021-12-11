@@ -77,5 +77,10 @@ void aoc21::runDay(const int day, const std::string &path) {
     }
     auto t1 = std::chrono::high_resolution_clock::now();
     auto execTime = std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0);
-    std::cout << "Total Execution Time: " << execTime.count() << "ms\n";
+    if (execTime.count() == 0) {
+        std::chrono::duration<double, std::milli> execTime_double = t1 - t0;
+        std::cout << "Total Execution Time: " << execTime_double.count() << "ms\n";
+    } else {
+        std::cout << "Total Execution Time: " << execTime.count() << "ms\n";
+    }
 }
