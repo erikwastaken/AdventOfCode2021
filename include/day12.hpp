@@ -28,6 +28,7 @@ namespace aoc21 {
                     bool _secondVisitAllowed {false};
                     std::string _secondVisit {};
                     void move(const std::string &from);
+                    bool isLower(const std::string &str) const;
             };
     };
 

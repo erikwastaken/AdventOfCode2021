@@ -1,6 +1,7 @@
 #include "day12.hpp"
 #include "utils.hpp"
 #include <algorithm>
+#include <cctype>
 
 aoc21::Day12::Day12(const std::vector<std::string> &input) {
     _connections = std::unordered_map<std::string, std::unordered_set<std::string>>();
@@ -36,12 +37,9 @@ void aoc21::Day12::PathFinder::move(const std::string &from) {
         return;
     }
     if (from != "start") {
-        auto lower = from; // give lower the appropriate length
-        std::transform(from.begin(), from.end(), lower.begin(),
-                       [](unsigned char c) -> unsigned char { return std::tolower(c); });
-        if (lower == from && _visited.contains(from)) {
+        if (isLower(from) && _visited.contains(from)) {
             if (_secondVisitAllowed && _secondVisit.empty()) {
-                _secondVisit = lower;
+                _secondVisit = from;
             } else {
                 return;
             }
@@ -56,6 +54,14 @@ void aoc21::Day12::PathFinder::move(const std::string &from) {
     } else {
         _visited.erase(from);
     }
+}
+
+bool aoc21::Day12::PathFinder::isLower(const std::string &str) const {
+    for (auto c : str) {
+        if (std::isupper(c))
+            return false;
+    }
+    return true;
 }
 
 int aoc21::Day12::PathFinder::pathCounter() const {
