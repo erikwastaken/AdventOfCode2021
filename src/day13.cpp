@@ -71,7 +71,7 @@ std::string aoc21::Day13::part2() const {
     for (auto i = 0; i != maxHeight; ++i) {
         result += '\n';
         for (auto ii = 0; ii != maxWidth; ++ii) {
-            char output = (prevDots.contains(std::make_pair(ii,i))) ? '#' : '.';
+            char output = (prevDots.contains(std::make_pair(ii,i))) ? '#' : ' ';
             result += output;
         }
     }

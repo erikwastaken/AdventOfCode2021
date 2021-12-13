@@ -35,7 +35,7 @@ SCENARIO("Day 13: Transparent Origami", "[day13]") {
         }
         WHEN("Part 2 - final configuration of points") {
             THEN("result is a square") {
-                auto exp = std::string("\n#####\n#...#\n#...#\n#...#\n#####\n.....\n.....");
+                auto exp = std::string("\n#####\n#   #\n#   #\n#   #\n#####\n     \n     ");
                 REQUIRE(cut.part2() == exp );
             }
         }
