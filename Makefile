@@ -1,4 +1,4 @@
-CPPFLAGS= -g -Wall -Wextra -pedantic -std=c++20 -Ilib -Iinclude
+CPPFLAGS= -O3 -Wall -Wextra -pedantic -std=c++20 -Ilib -Iinclude
 sources=$(wildcard src/*.cpp)
 objects=$(subst .cpp,.o,$(sources))
 testsrc=$(wildcard tests/*cpp)
