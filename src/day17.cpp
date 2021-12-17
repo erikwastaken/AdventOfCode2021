@@ -27,8 +27,9 @@ std::string aoc21::Day17::part1() const {
 
 std::string aoc21::Day17::part2() const {
     auto count = 0;
+    auto upperBoundY = std::max(abs(_minY), abs(_maxY));
     for (auto x = 1; x != _maxX + 1; ++x) {
-        for (auto y = -abs(_minY); y != abs(_minY) + 1; ++y) {
+        for (auto y = -upperBoundY; y != upperBoundY + 1; ++y) {
             if (isValid(x,y))
                 ++count;
         }
@@ -39,16 +40,12 @@ std::string aoc21::Day17::part2() const {
 bool aoc21::Day17::isValid(int x, int y) const {
     auto sumX = x;
     auto sumY = y;
-    while (!(sumX > _maxX || sumY < _minY)) {
-        if (_minX <=sumX && sumX <= _maxX && _minY <= sumY && sumY <= _maxY) {
+    while (sumX <= _maxX && sumY >= _minY) {
+        if (_minX <=sumX && sumX <= _maxX && _minY <= sumY && sumY <= _maxY)
             return true;
-        }
-        if (x == 0) {
-            if (sumX < _minX || sumX > _maxX)
-                return false;
-        }
-        if (x > 0)
-            sumX += --x;
+        if (x == 0 && (sumX < _minX || sumX > _maxX))
+            return false;
+        sumX += (x > 0) ? --x : 0;
         sumY += --y;
     }
     return false;
