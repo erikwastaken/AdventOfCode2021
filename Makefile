@@ -8,7 +8,7 @@ underTest=$(filter-out src/main.o,$(objects))
 all: testsuite aoc21
 
 aoc21: $(objects)
-	./testsuite
+	./testsuite exclude:\[day20\]
 	$(CXX) $(CPPFLAGS) $^ -o $@
 
 testsuite: $(testobjects) $(underTest)

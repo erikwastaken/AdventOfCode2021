@@ -5,15 +5,7 @@
 #include <string>
 #include <unordered_set>
 #include <utility>
-
-namespace std {
-    template <> struct hash<std::pair<int,int>> {
-        inline size_t operator()(const std::pair<int,int> &p) const {
-            std::hash<int> int_hasher;
-            return int_hasher(p.first) ^ int_hasher(p.second);
-        }
-    };
-}
+#include "utils.hpp"
 
 namespace aoc21 {
 
