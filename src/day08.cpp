@@ -262,7 +262,7 @@ std::string aoc21::Day08::newPart2() const {
         }
 
         auto outputNumber = std::string();
-        for (auto k=0; const auto &o : s.output) {
+        for (const auto &o : s.output) {
             for (auto i=0; i!=numbers.size(); ++i) {
                 if (numbers[i] == o) {
                    outputNumber += std::to_string(i);

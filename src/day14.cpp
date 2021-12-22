@@ -3,7 +3,7 @@
 
 aoc21::Day14::Day14(const std::vector<std::string> &input) {
     _template = input[0];
-    for (auto i = 2; i != input.size(); ++i) {
+    for (auto i = 2ul; i != input.size(); ++i) {
         auto splits = splitString(input[i], ' ');
         _rules[splits[0]] = splits[2][0]; // double subscript to get the char
     }
@@ -25,7 +25,7 @@ std::string aoc21::Day14::part2() const {
 
 std::unordered_map<std::string,long long> aoc21::Day14::step(int n) const {
     auto polymerPairs = std::unordered_map<std::string,long long>();
-    for (auto i = 0; i != _template.length() - 1; ++i) {
+    for (auto i = 0ul; i != _template.length() - 1; ++i) {
         auto key = _template.substr(i,2);
         ++polymerPairs[key];
     }

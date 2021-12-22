@@ -50,7 +50,7 @@ int aoc21::Day15::shortestDistanceToEnd(aoc21::Day15::Graph &graph) {
 //        auto it = std::min_element(hp.begin(), hp.end(), [](const auto it1, const auto it2) { return *it1 < *it2; });
 //        auto current = *it;
 //        hp.erase(it);
-        if (current->position == graph.nodes.size() - 1) {
+        if (current->position == (int) graph.nodes.size() - 1) {
             return current->distance;
         }
         current->visited = true;
@@ -134,7 +134,7 @@ bool aoc21::NodeLess::operator()(const Node* lhs, const Node* rhs) {
 aoc21::Day15::Graph::Graph(const std::vector<int> &weights, int _cols) : cols(_cols) {
     rows = weights.size() / cols;
     nodes.emplace_back(Node(0,0,0));
-    for (auto i = 1; i != weights.size(); ++i) {
+    for (auto i = 1ul; i != weights.size(); ++i) {
         nodes.emplace_back(Node(i,weights[i]));
     }
 }

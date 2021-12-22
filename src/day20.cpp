@@ -3,11 +3,11 @@
 aoc21::Day20::Day20(const std::vector<std::string> &input) {
     std::array<int,512> reference {};
     std::unordered_set<std::pair<int,int>> points {};
-    for (auto i = 0; auto c : input[0]) {
+    for (auto i = 0ul; auto c : input[0]) {
         reference[i++] = translate(c);
     }
 
-    for (auto y = 2; y != input.size(); ++y) {
+    for (auto y = 2ul; y != input.size(); ++y) {
         for (auto x = 0; auto c : input[y]) {
             if (translate(c)) {
                 points.insert(std::make_pair(x,y - 2));
@@ -59,7 +59,7 @@ aoc21::Day20::Image::Image(const std::unordered_set<std::pair<int,int>> &points,
 
 void aoc21::Day20::Image::enhance() {
     auto grid = _grid;
-    for (auto i = 0; i != _grid.size(); ++i) {
+    for (auto i = 0ul; i != _grid.size(); ++i) {
         // flip the outer edge of the grid;
         if (getIndexes(i).size() != 9)
             grid[i] = 1;

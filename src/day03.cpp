@@ -12,7 +12,7 @@ namespace aoc21 {
         ++countOn;
       }
     }
-    return (2 * countOn < values.size()) ? 0 : 1;
+    return (2 * countOn < (int) values.size()) ? 0 : 1;
   };
 
   int getLeastCommon(const int position, const std::vector<int>& values) {

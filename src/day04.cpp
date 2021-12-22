@@ -58,7 +58,7 @@ std::string aoc21::Day04::part2() const {
     int lastCompletedIdx = -1;
     int score = 0;
     for (auto number : _numbers) {
-        for (auto i=0; i!= boards.size(); ++i) {
+        for (auto i=0ul; i!= boards.size(); ++i) {
             if (completed.contains(i)) {
                 continue;
             }

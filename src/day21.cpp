@@ -33,10 +33,13 @@ constexpr std::pair<int, int> aoc21::Day21::play(int position1, int position2) c
     auto rolls = 0;
 
     while (!(p1.score > 999 || p2.score > 999)) {
-        if (rolls % 2 == 0) {
-            p1.move(dd100(++rolls) + dd100(++rolls) + dd100(++rolls));
+        auto r1 = dd100(++rolls);
+        auto r2 = dd100(++rolls);
+        auto r3 = dd100(++rolls);
+        if (rolls % 2 == 1) {
+            p1.move(r1 + r2 + r3);
         } else {
-            p2.move(dd100(++rolls) + dd100(++rolls) + dd100(++rolls));
+            p2.move(r1 + r2 + r3);
         }
     }
     auto losingPoints = std::min(p1.score, p2.score);

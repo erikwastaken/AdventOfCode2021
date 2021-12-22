@@ -85,7 +85,7 @@ aoc21::Day16::Packet::Packet(const std::string &binary) {
         } else {
             length = 18;
             auto numberOfSubPackets = std::stoi(binary.substr(7, 11), nullptr, 2);
-            while (subPackets.size() < numberOfSubPackets) {
+            while ((int) subPackets.size() < numberOfSubPackets) {
                 auto subPacket = Packet(binary.substr(length));
                 length += subPacket.length;
                 subPackets.push_back(subPacket);

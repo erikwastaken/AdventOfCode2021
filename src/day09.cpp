@@ -15,8 +15,8 @@ aoc21::Day09::Day09(const std::vector<std::string> &input) {
 
 std::string aoc21::Day09::part1() const {
     auto sum = 0;
-    for (auto i = 0; i != _heatmap.size(); ++i) {
-        for (auto ii=0; ii != _heatmap[i].size(); ++ii) {
+    for (auto i = 0ul; i != _heatmap.size(); ++i) {
+        for (auto ii=0ul; ii != _heatmap[i].size(); ++ii) {
             if (isLocalMinimum(i,ii)) {
                 sum += _heatmap[i][ii] + 1;
             }
@@ -27,8 +27,8 @@ std::string aoc21::Day09::part1() const {
 
 std::string aoc21::Day09::part2() const {
     auto basinSizes = std::vector<int>();
-    for (auto i = 0; i != _heatmap.size(); ++i) {
-        for (auto ii=0; ii != _heatmap[i].size(); ++ii) {
+    for (auto i = 0ul; i != _heatmap.size(); ++i) {
+        for (auto ii=0ul; ii != _heatmap[i].size(); ++ii) {
             if (isLocalMinimum(i,ii)) {
                 auto bf = BasinFinder(_heatmap, i, ii);
                 basinSizes.push_back(bf.getBasinSize());
@@ -70,7 +70,7 @@ std::vector<aoc21::Day09::Point> aoc21::getAdjacent(const std::vector<std::vecto
         if (col == 0) {
             result.push_back({row + 1,col});
             result.push_back({row,col + 1});
-        } else if (col == v[row].size() - 1) {
+        } else if (col == (int) v[row].size() - 1) {
             result.push_back({row + 1,col});
             result.push_back({row,col - 1});
         } else {
@@ -78,11 +78,11 @@ std::vector<aoc21::Day09::Point> aoc21::getAdjacent(const std::vector<std::vecto
             result.push_back({row,col + 1});
             result.push_back({row,col - 1});
         }
-    } else if (row == v.size() - 1) {
+    } else if (row == (int) v.size() - 1) {
         if (col == 0) {
             result.push_back({row - 1, col});
             result.push_back({row, col + 1});
-        } else if (col == v[row].size() - 1) {
+        } else if (col == (int) v[row].size() - 1) {
             result.push_back({row - 1, col});
             result.push_back({row, col - 1});
         } else {
@@ -95,7 +95,7 @@ std::vector<aoc21::Day09::Point> aoc21::getAdjacent(const std::vector<std::vecto
             result.push_back({row + 1, col});
             result.push_back({row - 1, col});
             result.push_back({row, col + 1});
-        } else if (col == v[row].size() - 1) {
+        } else if (col == (int) v[row].size() - 1) {
             result.push_back({row + 1, col});
             result.push_back({row - 1, col});
             result.push_back({row, col - 1});
